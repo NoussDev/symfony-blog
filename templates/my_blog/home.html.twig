@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+
+ {% block body %}
+ {% if action is defined and action == "success" %}
+    <div class="row">
+        <div class="col m6 offset-m3">
+            <div class="card-panel teal lighten-3 center-align">
+                Your article has been successfully added !
+            </div>
+        </div>
+    </div>
+    
+ {% endif %}
+    <div class="row">
+        {% for article in articles %}
+            <div class="col s12 m3 offset-m1">
+                <div class="card medium">
+                    <div class="card-image">
+                        <img src="{{article.picture}}">
+                        <span class="card-title"><b>{{article.title}}</b></span>
+                    </div>
+                    <div class="card-content">
+                        <p>{{article.content | slice(0,80)}}...</p>
+                        <a class="btn-floating halfway-fab waves-effect waves-light #00bfa5 teal accent-4"><i class="material-icons">edit</i></a>
+                    </div>
+                    <div class="card-action" style="padding:0px;!important; margin-left:10px;!important;">
+                        <p>{{article.createdAt|date("d/m/Y")}}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{{path('form')}}" class="btn-floating btn-large right waves-effect waves-light #d500f9 purple accent-3"><i class="material-icons">add</i></a>
+
+ {% endblock %}

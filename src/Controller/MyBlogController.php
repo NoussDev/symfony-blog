@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MyBlogController extends AbstractController
 {
     /**
-     * @Route("/", name="accueil")
+     * @Route("/{action}",defaults={"action"=""}, name="home")
      */
-    public function index()
+    public function index($action)
     {
-        $name="Yannis";
-        return $this->render('my_blog/index.html.twig', [
-            'controller_name' => 'MyBlogController',
-            'name' => $name
+        $repository = $this->getDoctrine()->getRepository(Article::class);
+        return $this->render('my_blog/home.html.twig',[
+            'action'=>$action,
+            'articles' => $repository->findAll()
         ]);
     }
 }
