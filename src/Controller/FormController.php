@@ -13,11 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 class FormController extends AbstractController
 {
     /**
-     * @Route("/form/{id}",defaults={"id"=""}, name="form")
+     * @Route("/form/new",name="form_new")
+     * @Route("/form/{id}/edit", name="form_edit")
      */
-    public function index(Request $request, $id)
+    public function index(Request $request, Article $article = null)
     {
-        $article = new Article();
+        if(!$article){
+            $article = new Article();
+        }
 
         $form = $this->createFormBuilder($article)
         ->add('Title', TextType::class)
@@ -30,7 +33,10 @@ class FormController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $article = $form->getData();
-            $article->setCreatedAt(new \DateTime());
+            if(!$article->getId())
+            {
+                $article->setCreatedAt(new \DateTime());                
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();

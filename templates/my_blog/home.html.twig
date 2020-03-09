@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-action" style="padding:0px;!important; margin-left:10px;!important;">
                         <p>{{article.createdAt|date("d/m/Y")}}
-                            <a href="{{ path("form",{ id: article.id}) }}" class="btn-floating waves-effect waves-light #00bfa5 teal accent-4"><i class="material-icons">edit</i></a>
+                            <a href="{{ path("form_edit",{ id: article.id}) }}" class="btn-floating waves-effect waves-light #00bfa5 teal accent-4"><i class="material-icons">edit</i></a>
                             <a href="{{ path("delete_article",{id: article.id}) }}" class="btn-floating waves-effect waves-light #00bfa5 teal accent-4"><i class="material-icons">delete</i></a>
                         </p>
                     </div>
@@ -33,6 +33,6 @@
             </div>
         {% endfor %}
     </div>
-    <a href="{{path('form')}}" class="btn-floating btn-large right waves-effect waves-light #d500f9 purple accent-3"><i class="material-icons">add</i></a>
+    <a href="{{path('form_new')}}" class="btn-floating btn-large right waves-effect waves-light #d500f9 purple accent-3"><i class="material-icons">add</i></a>
 
  {% endblock %}

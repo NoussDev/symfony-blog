@@ -14,6 +14,11 @@ class MyBlogController extends AbstractController
     public function index($action)
     {
         $repository = $this->getDoctrine()->getRepository(Article::class);
+
+        switch($action){
+            case "add_form":
+        }
+
         return $this->render('my_blog/home.html.twig',[
             'action'=>$action,
             'articles' => $repository->findAll()
