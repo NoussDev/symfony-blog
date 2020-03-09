@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 class FormController extends AbstractController
 {
     /**
-     * @Route("/form", name="form")
+     * @Route("/form/{id}",defaults={"id"=""}, name="form")
      */
-    public function index(Request $request)
+    public function index(Request $request, $id)
     {
         $article = new Article();
 
@@ -35,11 +35,23 @@ class FormController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home',['action' => 'success']);
+            return $this->redirectToRoute('home',['action' => 'add_success']);
         }
 
         return $this->render('form/form.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/form/delete/{id}", name="delete_article")
+     */
+    public function deleteArticle(Request $request, $id){
+       $entityManager = $this->getDoctrine()->getmanager();
+       $article = $entityManager->getRepository(Article::class)->find($id);
+       $entityManager->remove($article);
+       $entityManager->flush();
+
+       return $this->redirectToRoute('home',['action' => 'remove_success']);
     }
 }

@@ -20,7 +20,9 @@
             </div>
         </nav>
         <div class="container">
+        {% block title %}
             <h1 class="center-align">Welcome to my Super Blog</h1>
+        {% endblock %}
             {% block body %}{% endblock %}
         </div> 
 
