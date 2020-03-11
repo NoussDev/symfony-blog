@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,15 +20,25 @@ class FormController extends AbstractController
      */
     public function index(Request $request, Article $article = null)
     {
+        $categories = $this->getDoctrine()->getRepository(Category::class);
+
         if(!$article){
             $article = new Article();
         }
 
         $form = $this->createFormBuilder($article)
-        ->add('Title', TextType::class)
-        ->add('Content',TextareaType::class)
-        ->add('Picture',TextType::class)
-        ->add('Save',SubmitType::class)
+        ->add('title', TextType::class)
+        ->add('category',EntityType::class, [
+            'class' => Category::class,
+            'choice_label' => 'title'
+        ])
+        ->add('content',TextareaType::class)
+        ->add('picture',TextType::class)
+        ->add('save',SubmitType::class,[
+            'attr' => [
+                'class' => 'btn waves-effect waves-light'
+            ]
+        ])
         ->getForm();
 
         $form->handleRequest($request);
@@ -46,6 +58,7 @@ class FormController extends AbstractController
 
         return $this->render('form/form.html.twig', [
             'form' => $form->createView(),
+            'categories' => $categories->findAll()
         ]);
     }
 

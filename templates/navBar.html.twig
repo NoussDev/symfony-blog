@@ -1,0 +1,15 @@
+<ul id="dropdown1" class="dropdown-content">
+    {% for category in categories %}
+        <li><a href={{ path("category",{ id: category.id }) }}>{{category.title}}</a></li>
+    {% endfor %} 
+</ul>
+<nav>
+    <div class="nav-wrapper #0288d1 light-blue darken-2">
+    <a href="{{path("home")}}" class="brand-logo">MyBlog</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="{{path("home")}}">Accueil</a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Category<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="badges.html">Contact</a></li>
+    </ul>
+    </div>
+</nav>

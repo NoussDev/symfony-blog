@@ -9,16 +9,9 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            <div class="nav-wrapper #0288d1 light-blue darken-2">
-            <a href="{{path("home")}}" class="brand-logo">MyBlog</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="{{path("home")}}">Accueil</a></li>
-                <li><a href="badges.html">Categories</a></li>
-                <li><a href="badges.html">Contact</a></li>
-            </ul>
-            </div>
-        </nav>
+        {% block nav %}
+            {% include 'navBar.html.twig' %}
+        {% endblock %}
         <div class="container">
         {% block title %}
             <h1 class="center-align">Welcome to my Super Blog</h1>
@@ -27,7 +20,15 @@
         </div> 
 
         {% block javascripts %}
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            <script> 
+                $(document).ready(function(){
+                    $('select').formSelect();
+                    $(".dropdown-trigger").dropdown();
+                });
+            </script>
+            
         {% endblock %}
     </body>
 </html>
